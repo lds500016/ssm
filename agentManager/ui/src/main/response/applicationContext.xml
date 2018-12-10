@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation=" http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/aop
+                            http://www.springframework.org/schema/aop/spring-aop.xsd
+                            http://www.springframework.org/schema/context
+                            http://www.springframework.org/schema/context/spring-context.xsd
+                            http://www.springframework.org/schema/tx
+                            http://www.springframework.org/schema/tx/spring-tx.xsd"
+        default-autowire="byName">
+        <context:component-scan base-package="org.com"></context:component-scan>
+        <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+            <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+            <property name="url" value="jdbc:mysql://localhost:3306/agentmanager"></property>
+            <property name="username" value="root"></property>
+            <property name="password" value="123.com"></property>
+        </bean>
+
+        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+            <property name="dataSource" ref="dataSource"></property>
+            <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+            <property name="mapperLocations" value="classpath:org/com/dao/*.xml"></property>
+        </bean>
+
+        <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+            <property name="basePackage" value="org.com.dao"></property>
+            <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        </bean>
+
+        <bean id="transcationManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSource"></property>
+        </bean>
+
+        <tx:advice id="txadvice" transaction-manager="transcationManager">
+            <tx:attributes>
+                <tx:method name="add*" propagation="REQUIRED" isolation="DEFAULT"/>
+                <tx:method name="update*" propagation="REQUIRED" isolation="DEFAULT"/>
+                <tx:method name="del*" propagation="REQUIRED" isolation="DEFAULT"/>
+                <tx:method name="Add*" propagation="REQUIRED" isolation="DEFAULT"/>
+                <tx:method name="Update*" propagation="REQUIRED" isolation="DEFAULT"/>
+                <tx:method name="Del*" propagation="REQUIRED" isolation="DEFAULT"/>
+                <tx:method name="find*" propagation="REQUIRED" isolation="DEFAULT" read-only="true"/>
+                <tx:method name="Query*" propagation="REQUIRED" isolation="DEFAULT" read-only="true"/>
+            </tx:attributes>
+        </tx:advice>
+    <aop:config>
+        <aop:advisor advice-ref="txadvice" pointcut="execution(* org.com.service..*(..))"></aop:advisor>
+    </aop:config>
+</beans>

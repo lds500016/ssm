@@ -1,4 +1,4 @@
-package org.com.service.entities;
+package org.com.entities;
 
 import java.util.List;
 

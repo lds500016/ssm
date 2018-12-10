@@ -1,3 +1,7 @@
+package org.com.dao;
+
+import org.com.entities.city;
+
 public interface ICityDao {
         public city findAll();
         public int addCity(city c);

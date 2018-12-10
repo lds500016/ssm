@@ -1,4 +1,6 @@
+package org.com.dao;
 
+import org.com.entities.agent;
 
 public interface IAgentDao {
     public agent findAll();

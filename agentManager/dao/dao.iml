@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="entitys" exported="" />
+    <orderEntry type="library" exported="" name="Maven: org.mybatis:mybatis:3.4.6" level="project" />
   </component>
 </module>
