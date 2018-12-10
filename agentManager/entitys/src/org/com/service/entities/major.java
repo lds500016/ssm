@@ -1,3 +1,5 @@
+package org.com.service.entities;
+
 public class major {
 
     private int major_Id;

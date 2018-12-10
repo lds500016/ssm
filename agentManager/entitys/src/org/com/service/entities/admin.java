@@ -1,3 +1,5 @@
+package org.com.service.entities;
+
 public class admin {
 
     private int admin_Id;

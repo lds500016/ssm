@@ -1,3 +1,5 @@
+package org.com.service.entities;
+
 import java.util.List;
 
 public class city {
